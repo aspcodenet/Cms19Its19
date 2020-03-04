@@ -13,6 +13,7 @@ namespace Cms19Its19.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private static List<ChatMessage> chatmessages = new List<ChatMessage>();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -24,10 +25,20 @@ namespace Cms19Its19.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Chat()
         {
-            return View();
+            return View(new ChatMessageModel { List = chatmessages });
         }
+
+        [HttpPost]
+        public IActionResult Chat(ChatMessage message)
+        {
+            if(ModelState.IsValid)
+            {
+                chatmessages.Add(message);
+            }
+            return View(new ChatMessageModel { List = chatmessages, Title = message.Title, Text = message.Text, From = message.From });        }
+
 
         [Authorize]
         public IActionResult ListAccounts()

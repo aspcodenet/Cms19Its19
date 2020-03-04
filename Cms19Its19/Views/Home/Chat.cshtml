@@ -1,0 +1,39 @@
+﻿@model ChatMessageModel
+@{
+    ViewData["Title"] = "Chat";
+}
+<h1>@ViewData["Title"]</h1>
+
+@foreach(var msg in Model.List)
+{
+<div>
+    <h3>@msg.Title (@msg.From)</h3>
+    <p>@msg.Text</p>
+</div>
+    <hr />
+}
+
+<hr />
+<h2>Write a question</h2>
+<form asp-action="Chat">
+    <div class="form-group">
+        <label class="control-label">From</label>
+        <input asp-for="From" class="form-control" />
+        <span asp-validation-for="From" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Title</label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Message</label>
+        <textarea rows="10" cols="30" asp-for="Text" class="form-control"></textarea>
+        <span asp-validation-for="Text" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Submit" />
+    </div>
+
+</form>
